@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "TP_WeaponComponent.h"
 #include "TxOpenClassTaskCharacter.h"
+#include "SMChamferCube.h"
 
 #define MScreenMsg(t) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, t)
 
@@ -41,24 +42,35 @@ void ATxOpenClassTaskProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Oth
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-		
-		if (FMath::IsNearlyEqual(OtherActor->GetActorRelativeScale3D().X, 3.0))
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString("Hit on!"));
+		//auto log = FString::Printf(TEXT("actor: %s"), *OtherActor->GetName());
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, log);
+
+		auto cube = Cast<ASMChamferCube>(OtherActor);
+		if (!cube)
 		{
-			OtherActor->Destroy();
+			UE_LOG(LogTemp, Warning, TEXT("not a cube"));
+			return;
+		}
+
+		cube->hitCount++;
+
+		if (cube->hitCount == 1)
+		{
+			// random scale
+			OtherActor->SetActorRelativeScale3D(FVector(FMath::RandRange(1, 4), FMath::RandRange(1, 4), FMath::RandRange(1, 4)));
 		}
 		else
 		{
-			OtherActor->SetActorRelativeScale3D(FVector(3.0, 3.0, 3.0));
+			OtherActor->Destroy();
 		}
-		
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString("Hit on!"));
-		auto log = FString::Printf(TEXT("actor: %s"), *OtherActor->GetName());
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, log);
 
 		// add score
 		if (Weapon)
 		{
-			Weapon->GetCharacter()->AddScore(5);
+			auto score = cube->isSpecial ? 10 : 5;
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("add score: %d"), score));
+			Weapon->GetCharacter()->AddScore(score);
 		}
 
 		Destroy();

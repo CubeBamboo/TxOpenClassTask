@@ -41,10 +41,10 @@ void UTP_WeaponComponent::Fire()
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 	
 			// Spawn the projectile at the muzzle
-			auto actor = World->SpawnActor<ATxOpenClassTaskProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			auto projectile = World->SpawnActor<ATxOpenClassTaskProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
 
-			actor->SetWeapon(this);
-			//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Set weapon"));
+			if(projectile) projectile->SetWeapon(this);
+			else GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("projectile is null"));
 		}
 	}
 	

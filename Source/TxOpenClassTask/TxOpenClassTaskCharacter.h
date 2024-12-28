@@ -85,7 +85,9 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 	
+	UFUNCTION(BlueprintCallable, Category = Data)
 	int GetScore() const { return Score; }
+
 	void AddScore(int Value) { Score += Value; }
 };
 
