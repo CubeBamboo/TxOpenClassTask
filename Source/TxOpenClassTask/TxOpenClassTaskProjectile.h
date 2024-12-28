@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "TP_WeaponComponent.h"
 #include "TxOpenClassTaskProjectile.generated.h"
 
 class USphereComponent;
@@ -22,6 +23,8 @@ class ATxOpenClassTaskProjectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+	UTP_WeaponComponent* Weapon;
+
 public:
 	ATxOpenClassTaskProjectile();
 
@@ -33,5 +36,7 @@ public:
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
 	UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+	void SetWeapon(UTP_WeaponComponent* weapon) { Weapon = weapon; }
 };
 

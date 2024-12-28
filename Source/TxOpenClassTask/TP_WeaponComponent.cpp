@@ -42,7 +42,9 @@ void UTP_WeaponComponent::Fire()
 	
 			// Spawn the projectile at the muzzle
 			auto actor = World->SpawnActor<ATxOpenClassTaskProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			
+
+			actor->SetWeapon(this);
+			//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Set weapon"));
 		}
 	}
 	

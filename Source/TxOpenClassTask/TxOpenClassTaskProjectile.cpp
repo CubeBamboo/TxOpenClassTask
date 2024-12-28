@@ -3,6 +3,10 @@
 #include "TxOpenClassTaskProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "TP_WeaponComponent.h"
+#include "TxOpenClassTaskCharacter.h"
+
+#define MScreenMsg(t) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, t)
 
 ATxOpenClassTaskProjectile::ATxOpenClassTaskProjectile() 
 {
@@ -37,6 +41,25 @@ void ATxOpenClassTaskProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Oth
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		
+		if (FMath::IsNearlyEqual(OtherActor->GetActorRelativeScale3D().X, 3.0))
+		{
+			OtherActor->Destroy();
+		}
+		else
+		{
+			OtherActor->SetActorRelativeScale3D(FVector(3.0, 3.0, 3.0));
+		}
+		
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString("Hit on!"));
+		auto log = FString::Printf(TEXT("actor: %s"), *OtherActor->GetName());
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, log);
+
+		// add score
+		if (Weapon)
+		{
+			Weapon->GetCharacter()->AddScore(5);
+		}
 
 		Destroy();
 	}

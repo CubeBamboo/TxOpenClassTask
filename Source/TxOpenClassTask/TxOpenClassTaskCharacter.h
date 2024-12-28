@@ -40,7 +40,9 @@ class ATxOpenClassTaskCharacter : public ACharacter
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
-	
+
+	int Score;
+
 public:
 	ATxOpenClassTaskCharacter();
 
@@ -82,6 +84,8 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-
+	
+	int GetScore() const { return Score; }
+	void AddScore(int Value) { Score += Value; }
 };
 

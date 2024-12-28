@@ -57,4 +57,7 @@ protected:
 private:
 	/** The Character holding this weapon*/
 	ATxOpenClassTaskCharacter* Character;
+
+public:
+	ATxOpenClassTaskCharacter* GetCharacter() const { return Character; }
 };
