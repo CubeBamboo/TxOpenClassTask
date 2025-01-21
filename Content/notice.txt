@@ -1,0 +1,5 @@
+dont modify the file structure
+
+current known modification: Content/NewWorld.umap was deleted.
+
+if the project cannot be open. revert this file.(a casual file with same name is ok)

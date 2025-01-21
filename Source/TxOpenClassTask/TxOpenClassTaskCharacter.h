@@ -80,6 +80,15 @@ protected:
 	// End of APawn interface
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
+	int CountProjectile;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
+	float HealthPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Weapon)
+	float MaxHealthPoint = 15;
+
 	/** Returns Mesh1P subobject **/
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/

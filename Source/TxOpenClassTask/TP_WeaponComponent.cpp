@@ -20,7 +20,7 @@ UTP_WeaponComponent::UTP_WeaponComponent()
 
 void UTP_WeaponComponent::Fire()
 {
-	if (Character == nullptr || Character->GetController() == nullptr)
+	if (Character == nullptr || Character->GetController() == nullptr || Character->CountProjectile <= 0)
 	{
 		return;
 	}
@@ -43,7 +43,11 @@ void UTP_WeaponComponent::Fire()
 			// Spawn the projectile at the muzzle
 			auto projectile = World->SpawnActor<ATxOpenClassTaskProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
 
-			if(projectile) projectile->SetWeapon(this);
+			if (projectile)
+			{
+				projectile->SetWeapon(this);
+				Character->CountProjectile--;
+			}
 			else GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("projectile is null"));
 		}
 	}
