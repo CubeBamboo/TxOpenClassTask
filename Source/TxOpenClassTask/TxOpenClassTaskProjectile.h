@@ -10,6 +10,8 @@
 class USphereComponent;
 class UProjectileMovementComponent;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHitDelegate, UPrimitiveComponent*, HitComp, AActor*, OtherActor, UPrimitiveComponent*, OtherComp, FVector, NormalImpulse, const FHitResult&, Hit);
+
 UCLASS(config=Game)
 class ATxOpenClassTaskProjectile : public AActor
 {
@@ -26,6 +28,9 @@ class ATxOpenClassTaskProjectile : public AActor
 	UTP_WeaponComponent* Weapon;
 
 public:
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Projectile")
+	FOnHitDelegate OnHitDelegate;
+
 	ATxOpenClassTaskProjectile();
 
 	/** called when projectile hits something */

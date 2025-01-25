@@ -53,6 +53,7 @@ void ATxOpenClassTaskProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Oth
 			return;
 		}
 
+		OnHitDelegate.Broadcast(HitComp, OtherActor, OtherComp, NormalImpulse, Hit);
 		cube->hitCount++;
 
 		if (cube->hitCount == 1)
