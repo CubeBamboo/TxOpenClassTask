@@ -54,9 +54,9 @@ void ATxOpenClassTaskProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Oth
 		}
 
 		OnHitDelegate.Broadcast(HitComp, OtherActor, OtherComp, NormalImpulse, Hit);
-		cube->hitCount++;
+		cube->HitCount++;
 
-		if (cube->hitCount == 1)
+		if (cube->HitCount == 1)
 		{
 			// random scale
 			OtherActor->SetActorRelativeScale3D(FVector(FMath::RandRange(1, 4), FMath::RandRange(1, 4), FMath::RandRange(1, 4)));
@@ -69,7 +69,7 @@ void ATxOpenClassTaskProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Oth
 		// add score
 		if (Weapon)
 		{
-			auto score = cube->isSpecial ? 10 : 5;
+			auto score = cube->bIsSpecial ? 10 : 5;
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("add score: %d"), score));
 			Weapon->GetCharacter()->AddScore(score);
 		}

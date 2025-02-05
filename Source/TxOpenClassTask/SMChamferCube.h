@@ -12,8 +12,8 @@ class TXOPENCLASSTASK_API ASMChamferCube : public AActor
 	GENERATED_BODY()
 	
 public:	
-	int hitCount = 0;
-	bool isSpecial = false;
+	int HitCount = 0;
+	bool bIsSpecial = false;
 
 	// Sets default values for this actor's properties
 	ASMChamferCube();

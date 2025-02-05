@@ -16,17 +16,17 @@ void ASMChamferCube::BeginPlay()
 	Super::BeginPlay();
 	
 	// random set up the cube to be special
-	isSpecial = FMath::RandRange(0, 10) < 3;
-	if (isSpecial)
+	bIsSpecial = FMath::RandRange(0, 10) < 3;
+	if (bIsSpecial)
 	{
 		auto meshComp = FindComponentByClass<UStaticMeshComponent>();
 		UMaterialInstanceDynamic* dynamicMaterialInstance = UMaterialInstanceDynamic::Create(meshComp->GetMaterial(0), this);
 
-		// 设置颜色参数
-		FLinearColor NewColor(1.0f, 0.0f, 0.0f, 1.0f); // 红色
+		// setup color parameter
+		constexpr FLinearColor NewColor(1.0f, 0.0f, 0.0f, 1.0f); // red
 		dynamicMaterialInstance->SetVectorParameterValue("Base Color", NewColor);
 
-		// 将动态材质实例应用到组件
+		// apply material
 		meshComp->SetMaterial(0, dynamicMaterialInstance);
 	}
 }
